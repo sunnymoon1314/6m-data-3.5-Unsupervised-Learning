@@ -263,7 +263,7 @@ h3 em,h3 strong{color:var(--ntu-crimson)!important;font-style:normal!important;f
     <div class="section-title">
       <div class="label">A taxonomy</div>
       <h2>Unsupervised is <em>three jobs</em>, not one.</h2>
-      <p class="deck">The deliverable picks the algorithm &mdash; not the other way around. A 2D picture for a stakeholder is PCA. A segment label per row is K-Means. A ranked list of weird rows is Isolation Forest. Pick the job, then the tool.</p>
+      <p class="deck">The deliverable picks the algorithm &mdash; not the other way around. Start by asking: <em>what does the stakeholder actually receive?</em> A scatter plot for a slide deck points to PCA. A spreadsheet with a "segment" column points to K-Means. A ranked watch list of suspicious customers points to Isolation Forest. The mistake is choosing an algorithm first and hoping it produces something useful &mdash; that is how you spend a week on results nobody asked for.</p>
     </div>
   </div>
 
@@ -341,6 +341,13 @@ h3 em,h3 strong{color:var(--ntu-crimson)!important;font-style:normal!important;f
       </div>
     </div>
   </div>
+
+  <div style="margin-top:28px;border:1px solid var(--border);background:var(--bg-off);padding:22px 26px;max-width:900px">
+    <div class="label" style="color:var(--ntu-crimson);margin-bottom:10px">How a principal component is built</div>
+    <p style="font-family:'Open Sans',sans-serif;font-size:15.5px;color:var(--text-body);line-height:1.6;margin:0 0 10px">A <strong>principal component (PC)</strong> is a new axis &mdash; a weighted linear combination of all your original features. PC1 is the direction in which the data spreads out the most; PC2 is the next most-spread direction that is uncorrelated with PC1, and so on.</p>
+    <p style="font-family:'Open Sans',sans-serif;font-size:15.5px;color:var(--text-body);line-height:1.6;margin:0 0 10px">PCA <strong>maximises variance</strong> because variance is a proxy for information. A direction where all points land on top of each other tells you nothing; a direction where they spread far apart reveals the most contrast between customers. By ranking axes from highest to lowest variance, PCA lets you keep the first few PCs and discard the rest without losing much signal.</p>
+    <p style="font-family:'Open Sans',sans-serif;font-size:15.5px;color:var(--text-body);line-height:1.6;margin:0">Concretely: the loading (weight) on each original feature tells you how much that feature contributes to a PC. A PC with high loadings on <span class="mono">tenure</span> and <span class="mono">avg_monthly_spend</span> is an "engagement" axis. A PC with a dominant loading on a single raw feature is a sign that feature dominated by its scale &mdash; which is exactly what the unscaled example above shows.</p>
+  </div>
 </section>
 
 <section id="s3">
@@ -359,7 +366,7 @@ h3 em,h3 strong{color:var(--ntu-crimson)!important;font-style:normal!important;f
       <label>K = <span class="mono" id="kV">4</span></label>
       <input type="range" id="kSlider" min="2" max="10" step="1" value="4">
       <svg class="ksvg" id="kCurves" viewBox="0 0 600 230" preserveAspectRatio="none"></svg>
-      <p style="font-family:'Open Sans',sans-serif;font-style:italic;color:var(--ink-2);font-size:14.5px;margin:12px 0 0;line-height:1.5">Teal = inertia (lower is tighter). Vermillion = silhouette (higher is more separated). The vertical line marks your K.</p>
+      <p style="font-family:'Open Sans',sans-serif;color:var(--text-body);font-size:14.5px;margin:12px 0 0;line-height:1.6"><strong>Inertia</strong> (teal) is the total squared distance from every point to its cluster centre &mdash; a measure of compactness. It always falls as K rises, so look for the <em>elbow</em> where the drop flattens out rather than the raw minimum. <strong>Silhouette</strong> (vermillion) compares how close each point is to its own cluster versus the nearest other cluster; it ranges from &minus;1 to +1 and higher is better. Neither metric tells you the "true" K &mdash; they are evidence, not a verdict. The vertical line marks your chosen K.</p>
     </div>
 
     <div class="kside">
